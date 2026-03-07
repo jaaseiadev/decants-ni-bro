@@ -11,7 +11,7 @@ export function PublicLayout({ children, className }: { children: React.ReactNod
             DecantSnibro
           </Link>
           <nav className="hidden md:flex items-center gap-8">
-            <Link href="/catalog" className="text-sm font-medium uppercase tracking-widest hover:text-ds-taupe transition-colors">
+            <Link href="/" className="text-sm font-medium uppercase tracking-widest hover:text-ds-taupe transition-colors">
               Catalog
             </Link>
             <Link href="/about" className="text-sm font-medium uppercase tracking-widest hover:text-ds-taupe transition-colors">

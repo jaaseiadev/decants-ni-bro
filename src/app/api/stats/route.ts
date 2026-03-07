@@ -9,8 +9,8 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'Missing month parameter' }, { status: 400 });
   }
 
-  const supabase = createClient();
-  
+  const supabase = await createClient();
+
   // Calculate date ranges for the given month
   const startDate = new Date(`${month}-01T00:00:00Z`);
   const endDate = new Date(startDate.getFullYear(), startDate.getMonth() + 1, 0, 23, 59, 59, 999);

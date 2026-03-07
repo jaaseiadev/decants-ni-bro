@@ -3,12 +3,13 @@
 import React, { useState, useEffect } from "react";
 import { StockProgressBar } from "@/components/admin/StockProgressBar";
 import { InventoryLog, LogEntry } from "@/components/admin/InventoryLog";
-import { supabase } from "@/lib/supabase/client";
+import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { StatusPill } from "@/components/ui/status-pill";
 
 export default function InventoryAdminPage() {
+  const supabase = createClient();
   const [perfumes, setPerfumes] = useState<any[]>([]);
   const [logs, setLogs] = useState<LogEntry[]>([]);
   const [restockAmount, setRestockAmount] = useState<Record<string, string>>({});
@@ -113,7 +114,7 @@ export default function InventoryAdminPage() {
                         <StockProgressBar currentStock={(perfume.stock_5ml || 0) * 5 + (perfume.stock_10ml || 0) * 10} maxStock={100} />
                     </td>
                     <td className="px-6 py-4">
-                      <StatusPill status={(perfume.stock_5ml + perfume.stock_10ml) < 5 ? 'low_stock' : 'in_stock'} />
+                      <StatusPill status={(perfume.stock_5ml + perfume.stock_10ml) < 5 ? 'OUT_OF_STOCK' : 'AVAILABLE'} />
                     </td>
                     <td className="px-6 py-4">
                         <div className="flex items-center justify-end space-x-2">
