@@ -34,6 +34,15 @@ export function AdminLayout({ children, className }: { children: React.ReactNode
             <Link href="/admin/catalog" className="text-sm font-medium uppercase tracking-widest text-ds-greige hover:text-ds-ivory transition-colors">
               Catalog
             </Link>
+            <Link href="/admin/inventory" className="text-sm font-medium uppercase tracking-widest text-ds-greige hover:text-ds-ivory transition-colors">
+              Inventory
+            </Link>
+            <Link href="/admin/sales" className="text-sm font-medium uppercase tracking-widest text-ds-greige hover:text-ds-ivory transition-colors">
+              Sales
+            </Link>
+            <Link href="/admin/stats" className="text-sm font-medium uppercase tracking-widest text-ds-greige hover:text-ds-ivory transition-colors">
+              Stats
+            </Link>
             <button 
               onClick={handleSignOut}
               className="text-sm font-medium uppercase tracking-widest text-ds-greige hover:text-ds-ivory transition-colors flex items-center gap-2"
@@ -70,6 +79,27 @@ export function AdminLayout({ children, className }: { children: React.ReactNode
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Catalog
+            </Link>
+            <Link 
+              href="/admin/inventory" 
+              className="text-sm font-medium uppercase tracking-widest text-ds-greige hover:text-ds-ivory transition-colors"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Inventory
+            </Link>
+            <Link 
+              href="/admin/sales" 
+              className="text-sm font-medium uppercase tracking-widest text-ds-greige hover:text-ds-ivory transition-colors"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Sales
+            </Link>
+            <Link 
+              href="/admin/stats" 
+              className="text-sm font-medium uppercase tracking-widest text-ds-greige hover:text-ds-ivory transition-colors"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Stats
             </Link>
             <button 
               onClick={() => {
