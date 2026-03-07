@@ -1,26 +1,46 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
+@theme {
+  --color-ds-black: var(--ds-black);
+  --color-ds-ivory: var(--ds-ivory);
+  --color-ds-nude: var(--ds-nude);
+  --color-ds-greige: var(--ds-greige);
+  --color-ds-taupe: var(--ds-taupe);
+  --color-ds-charcoal: var(--ds-charcoal);
+
+  --font-serif: var(--font-cormorant);
+  --font-sans: var(--font-inter);
+}
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --ds-black: #050505;
+  --ds-ivory: #faf9f6;
+  --ds-nude: #e3d5ca;
+  --ds-greige: #b5a89e;
+  --ds-taupe: #8b8077;
+  --ds-charcoal: #333333;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--ds-ivory);
+  color: var(--ds-black);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+@layer utilities {
+  .display-title {
+    @apply font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight leading-none uppercase;
+  }
+  .display-subtitle {
+    @apply font-serif text-3xl md:text-5xl leading-tight uppercase;
+  }
+  .body-text {
+    @apply font-sans text-sm md:text-base leading-relaxed text-ds-charcoal;
+  }
+  .fine-print {
+    @apply font-sans text-xs tracking-widest uppercase text-ds-taupe;
+  }
+}
+
