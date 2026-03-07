@@ -2,11 +2,21 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Menu, X, LogOut } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { createClient } from "@/lib/supabase/client";
 
 export function AdminLayout({ children, className }: { children: React.ReactNode; className?: string }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+  const router = useRouter();
+  const supabase = createClient();
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    router.push("/login");
+    router.refresh();
+  };
 
   return (
     <div className={cn("min-h-screen flex flex-col font-sans bg-ds-ivory", className)}>
@@ -24,6 +34,13 @@ export function AdminLayout({ children, className }: { children: React.ReactNode
             <Link href="/admin/catalog" className="text-sm font-medium uppercase tracking-widest text-ds-greige hover:text-ds-ivory transition-colors">
               Catalog
             </Link>
+            <button 
+              onClick={handleSignOut}
+              className="text-sm font-medium uppercase tracking-widest text-ds-greige hover:text-ds-ivory transition-colors flex items-center gap-2"
+            >
+              <LogOut size={16} />
+              Sign Out
+            </button>
           </nav>
 
           {/* Mobile Menu Toggle */}
@@ -54,6 +71,16 @@ export function AdminLayout({ children, className }: { children: React.ReactNode
             >
               Catalog
             </Link>
+            <button 
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                handleSignOut();
+              }}
+              className="text-sm font-medium uppercase tracking-widest text-ds-greige hover:text-ds-ivory transition-colors flex items-center gap-2 text-left"
+            >
+              <LogOut size={16} />
+              Sign Out
+            </button>
           </nav>
         </div>
       )}
