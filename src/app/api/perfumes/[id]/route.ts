@@ -37,6 +37,9 @@ export async function PUT(
       .from('perfumes')
       .update(body)
       .eq('id', id)
+      
+    if (error) throw error
+
     return NextResponse.json(data)
   } catch (err: any) {
     return NextResponse.json({ error: err.message }, { status: 400 })
