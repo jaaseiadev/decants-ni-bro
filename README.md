@@ -2,6 +2,8 @@
 
 Decants ni Bro is a modern web application and the official platform for our real-world perfume decanting business. It features a public-facing catalog for customers to browse our available fragrances and a comprehensive administrative dashboard for managing our inventory, tracking sales, and analyzing business statistics.
 
+If you are ever interested in buying perfume decants, check out our live catalog at [decants-ni-bro.vercel.app](https://decants-ni-bro.vercel.app) or visit our [Facebook Page](https://www.facebook.com/profile.php?id=61584297385882).
+
 ## Business Overview
 
 This is the custom-built infrastructure powering our actual perfume decanting operations. It centralizes our catalog, sales tracking, and inventory management into a single platform for our daily business use.
