@@ -171,7 +171,7 @@ export function Catalog({ perfumes }: { perfumes: any[] }) {
                   </div>
                   
                   <a
-                    href={`https://wa.me/639123456789?text=${encodeURIComponent(`Hi! I'm interested in ordering a decant of ${selectedPerfume.brand} - ${selectedPerfume.name}.`)}`}
+                    href="https://www.facebook.com/profile.php?id=61584297385882"
                     target="_blank"
                     rel="noreferrer"
                     className="block w-full border border-[#0A0A0A] bg-[#0A0A0A] py-4 text-center font-['Outfit'] text-xs uppercase tracking-[0.2em] text-white transition-colors hover:bg-white hover:text-[#0A0A0A]"
@@ -260,23 +260,23 @@ export function Footer() {
         {/* Center */}
         <div className="text-left md:text-center">
           <p className="font-['IBM_Plex_Mono'] text-[10px] uppercase tracking-[0.2em] text-[#9A9A9A]">
-            Est. 2026 · Cebu City, PH · Decants Only
+            Est. 2026 · Visayas State University Baybay City Leyte / Mahaplag Leyte · Decants Only
           </p>
         </div>
 
         {/* Right */}
         <div className="flex flex-col items-start gap-2 md:items-end">
           <a
-            href="https://instagram.com"
+            href="https://www.facebook.com/profile.php?id=61584297385882"
             target="_blank"
             rel="noreferrer"
             className="group relative inline-flex items-center gap-2 font-['Outfit'] text-xs font-light uppercase tracking-[0.2em] text-white"
           >
-            Instagram
+            Facebook
             <span className="absolute -bottom-1 left-0 h-[1px] w-0 bg-white transition-all duration-300 group-hover:w-full" />
           </a>
           <p className="font-['Outfit'] text-[10px] uppercase tracking-[0.2em] text-[#9A9A9A]">
-            DM to Order
+            Message to Order
           </p>
         </div>
       </div>
@@ -320,7 +320,7 @@ export function Hero() {
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0 h-full w-full">
         <img
-          src="https://images.unsplash.com/photo-1541643600914-78b084683702?w=1600&q=80&auto=format"
+          src="/hero-bg.jpg"
           alt="Perfume glass background"
           loading="lazy"
           className="h-full w-full object-cover object-center brightness-[0.6] grayscale-[0.2]"
