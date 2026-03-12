@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,100..900;1,6..96,100..900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Outfit:wght@100..900&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --color-ds-black: var(--ds-black);
+  --color-ds-ivory: var(--ds-ivory);
+  --color-ds-nude: var(--ds-nude);
+  --color-ds-greige: var(--ds-greige);
+  --color-ds-taupe: var(--ds-taupe);
+  --color-ds-charcoal: var(--ds-charcoal);
+
+  --font-serif: var(--font-cormorant);
+  --font-sans: var(--font-inter);
+}
+
+:root {
+  --ds-black: #050505;
+  --ds-ivory: #faf9f6;
+  --ds-nude: #e3d5ca;
+  --ds-greige: #b5a89e;
+  --ds-taupe: #8b8077;
+  --ds-charcoal: #333333;
+}
+
+body {
+  background-color: var(--ds-ivory);
+  color: var(--ds-black);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer utilities {
+  .display-title {
+    @apply font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight leading-none uppercase;
+  }
+  .display-subtitle {
+    @apply font-serif text-3xl md:text-5xl leading-tight uppercase;
+  }
+  .body-text {
+    @apply font-sans text-sm md:text-base leading-relaxed text-ds-charcoal;
+  }
+  .fine-print {
+    @apply font-sans text-xs tracking-widest uppercase text-ds-taupe;
+  }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 20s linear infinite;
+}
+
