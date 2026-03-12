@@ -12,13 +12,11 @@ export function Catalog({ perfumes }: { perfumes: any[] }) {
   const [activeFilter, setActiveFilter] = useState("All");
   const [selectedPerfume, setSelectedPerfume] = useState<any | null>(null);
 
-  // Dynamically extract unique categories, omitting empty/falsy ones
-  const dynamicFilters = Array.from(new Set(perfumes.map(p => p.category).filter(Boolean)));
-  const filters = ["All", ...dynamicFilters].slice(0, 6); // Keep it to max 6 filters to fit nicely
+  const filters = ["All", "Summer", "Winter", "Versatile fragrance"];
 
   const filteredPerfumes = activeFilter === "All"
     ? perfumes
-    : perfumes.filter((p: any) => p.category === activeFilter);
+    : perfumes.filter((p: any) => p.category?.toLowerCase() === activeFilter.toLowerCase());
 
   return (
     <section id="catalog" className="bg-[#F5F5F3] px-6 py-24 lg:px-12 lg:py-32">
