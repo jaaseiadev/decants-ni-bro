@@ -116,14 +116,18 @@ export default async function PerfumeDetail({
             
             <div className="flex gap-4">
               <a
-                href={`https://wa.me/639123456789?text=${encodeURIComponent(`Hi! I'm interested in ordering a 5ml decant of ${perfume.brand} - ${perfume.name}.`)}`}
+                href={"https://www.facebook.com/profile.php?id=61584297385882"}
+                target="_blank"
+                rel="noreferrer"
                 className="flex-1 inline-flex items-center justify-center bg-transparent border border-ds-black text-ds-black px-4 py-3 uppercase tracking-widest text-xs hover:bg-ds-black hover:text-white transition-colors"
                 aria-disabled={perfume.status === "OUT_OF_STOCK"}
               >
                 Inquire 5ml
               </a>
               <a
-                href={`https://wa.me/639123456789?text=${encodeURIComponent(`Hi! I'm interested in ordering a 10ml decant of ${perfume.brand} - ${perfume.name}.`)}`}
+                href={"https://www.facebook.com/profile.php?id=61584297385882"}
+                target="_blank"
+                rel="noreferrer"
                 className="flex-1 inline-flex items-center justify-center bg-ds-black text-white px-4 py-3 uppercase tracking-widest text-xs hover:bg-ds-black/80 transition-colors"
                 aria-disabled={perfume.status === "OUT_OF_STOCK"}
               >

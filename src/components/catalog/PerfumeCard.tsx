@@ -29,7 +29,6 @@ export function PerfumeCard({
   large = false,
 }: PerfumeCardProps) {
   const isAvailable = status === "AVAILABLE";
-  const whatsappMsg = encodeURIComponent(`Hi! I'm interested in ordering a decant of ${brand} - ${name}.`);
 
   return (
     <div className={`group relative flex flex-col overflow-hidden bg-transparent mb-8
@@ -60,7 +59,9 @@ export function PerfumeCard({
             From ₱{price5ml}
           </p>
           <a
-            href={`https://wa.me/639123456789?text=${whatsappMsg}`}
+            href={"https://www.facebook.com/profile.php?id=61584297385882"}
+            target="_blank"
+            rel="noreferrer"
             onClick={(e) => e.stopPropagation()}
             className="text-xs uppercase tracking-widest border-b border-[#0A0A0A] pb-0.5 hover:text-gray-500 hover:border-gray-500 transition-colors"
           >
