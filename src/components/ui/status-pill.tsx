@@ -1,16 +1,17 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-type StatusType = "AVAILABLE" | "IN_TRANSIT" | "OUT_OF_STOCK";
+type StatusType = "in stock" | "out of stock" | "new" | "in transit";
 
 export interface StatusPillProps extends React.HTMLAttributes<HTMLSpanElement> {
   status: StatusType;
 }
 
 const statusConfig: Record<StatusType, string> = {
-  AVAILABLE: "bg-ds-black text-ds-ivory",
-  IN_TRANSIT: "border border-ds-nude text-ds-black bg-transparent",
-  OUT_OF_STOCK: "bg-ds-greige text-ds-ivory line-through opacity-70",
+  "in stock": "bg-ds-black text-ds-ivory",
+  "new": "bg-[#E5D5C5] text-ds-black font-bold",
+  "in transit": "border border-ds-nude text-ds-black bg-transparent",
+  "out of stock": "bg-ds-greige text-ds-ivory line-through opacity-70",
 };
 
 export function StatusPill({ status, className, ...props }: StatusPillProps) {

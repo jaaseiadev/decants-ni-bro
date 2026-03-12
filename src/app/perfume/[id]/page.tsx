@@ -44,14 +44,14 @@ export default async function PerfumeDetail({
         <div className="lg:w-[60%] relative bg-gray-100 min-h-[50vh] lg:min-h-screen group overflow-hidden">
           <div className="absolute inset-0 bg-ds-greige/20 mix-blend-multiply transition-transform duration-1000 group-hover:scale-105" />
           <div className="absolute top-6 left-6 z-10 hidden lg:block">
-             <StatusPill status={perfume.status as "AVAILABLE" | "IN_TRANSIT" | "OUT_OF_STOCK"} />
+             <StatusPill status={perfume.status as "in stock" | "in transit" | "out of stock" | "new"} />
           </div>
         </div>
 
         {/* Right: 40% Info Panel */}
         <div className="lg:w-[40%] px-6 py-12 lg:p-16 flex flex-col h-full lg:overflow-y-auto lg:h-screen sticky top-0">
           <div className="lg:hidden mb-4">
-             <StatusPill status={perfume.status as "AVAILABLE" | "IN_TRANSIT" | "OUT_OF_STOCK"} />
+             <StatusPill status={perfume.status as "in stock" | "in transit" | "out of stock" | "new"} />
           </div>
           
           <p className="text-sm font-semibold tracking-widest text-ds-taupe uppercase mb-2">

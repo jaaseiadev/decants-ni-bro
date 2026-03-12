@@ -12,11 +12,11 @@ export async function GET() {
 
     if (perfumesErr) throw perfumesErr;
 
-    // 2. Low Stock Alerts & List
+    // 2. Out of Stock / In Transit Alerts & List
     const { data: lowStockItems, error: lowStockErr } = await supabase
       .from("perfumes")
-      .select("id, name, stock_5ml, stock_10ml")
-      .or("stock_5ml.lt.10,stock_10ml.lt.5");
+      .select("id, name, status")
+      .in("status", ["out of stock", "in transit"]);
 
     if (lowStockErr) throw lowStockErr;
 
@@ -90,7 +90,7 @@ export async function GET() {
   } catch (error) {
     console.error("Dashboard API Error:", error);
     return NextResponse.json(
-      { error: "Failed to fetch dashboard data" },
+      { error: "Failed to fetch dashboard data", details: JSON.stringify(error) },
       { status: 500 }
     );
   }

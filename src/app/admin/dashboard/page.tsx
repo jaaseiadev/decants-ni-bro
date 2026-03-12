@@ -15,8 +15,7 @@ interface DashboardData {
   lowStockItems: Array<{
     id: string;
     name: string;
-    stock_5ml: number;
-    stock_10ml: number;
+    status: string;
   }>;
   recentSales: Array<any>;
   chartData: Array<any>;
@@ -74,19 +73,21 @@ export default function DashboardPage() {
 
       {/* Low Stock Alert Strip */}
       {data.lowStockItems.length > 0 && (
-        <div className="bg-red-50 text-red-900 border border-red-200 p-4 flex items-center gap-4">
+        <div className="bg-orange-50 text-orange-900 border border-orange-200 p-4 flex items-center gap-4">
           <div className="font-sans text-xs font-bold uppercase tracking-widest shrink-0">
-            Low Stock Alerts
+            Status Alerts
           </div>
           <div className="whitespace-nowrap overflow-x-auto flex space-x-3 pr-4 scrollbar-hide">
             {data.lowStockItems.map((item) => (
               <div 
                 key={item.id} 
-                className="inline-flex items-center justify-center px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-red-500 border border-red-500 bg-transparent rounded-full"
+                className={`inline-flex items-center justify-center px-4 py-1.5 text-xs font-medium uppercase tracking-widest border bg-transparent rounded-full ${
+                  item.status === 'out of stock' ? 'text-red-500 border-red-500' : 'text-orange-500 border-orange-500'
+                }`}
               >
                 {item.name} 
                 <span className="opacity-80 ml-2">
-                  (5ml: {item.stock_5ml} | 10ml: {item.stock_10ml})
+                  ({item.status})
                 </span>
               </div>
             ))}
@@ -97,7 +98,7 @@ export default function DashboardPage() {
       {/* Hero Metrics */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <MetricCard label="Total Perfumes" value={data.metrics.totalPerfumes} />
-        <MetricCard label="Low Stock Alerts" value={data.metrics.lowStockCount} />
+        <MetricCard label="Not In Stock" value={data.metrics.lowStockCount} />
         <MetricCard label="Monthly Revenue" value={`₱${data.metrics.monthlyRevenue.toLocaleString()}`} />
         <MetricCard label="Net Profit" value={`₱${data.metrics.netProfit.toLocaleString()}`} />
       </div>

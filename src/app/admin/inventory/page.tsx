@@ -51,31 +51,27 @@ export default function InventoryAdminPage() {
   };
 
   const handleRestock = async (id: string, name: string) => {
-    const amount = parseInt(restockAmount[id] || '0', 10);
-    if (!amount || amount <= 0) return;
+    const newStatus = restockAmount[id];
+    if (!newStatus) return;
 
     try {
-      const perfume = perfumes.find(p => p.id === id);
-      const newStock10ml = (perfume.stock_10ml || 0) + amount; // Adding ml to stock_10ml for simplicity as it equates ml if we just treat 'change_ml' as ml amount. Wait, if amount is ml, we'll store stock as ml directly. Or we add 10ml bottles. Let's just track stock_10ml as "total stock ml" for now. Actually, if it's ml, let's just add to stock_10ml but divide by 10. Or just add to stock_10ml. 
-      // Let's just add to stock_10ml.
-      
-      const { error: updateError } = await supabase.from('perfumes').update({ stock_10ml: newStock10ml }).eq('id', id);
+      const { error: updateError } = await supabase.from('perfumes').update({ status: newStatus }).eq('id', id);
       if (updateError) throw updateError;
 
-      // Create log
+      // Create log (mocking change_ml with 0 since we only updated status)
       const { error: logError } = await supabase.from('inventory_log').insert([{
         perfume_id: id,
         perfume_name: name,
-        change_ml: amount,
-        type: 'restock',
+        change_ml: 0,
+        type: 'adjustment',
       }]);
       
       // Refresh
       fetchInventory();
       setRestockAmount(prev => ({ ...prev, [id]: '' }));
     } catch(err) {
-      console.error('Failed to restock', err);
-      alert('Failed to restock. Please check the logs.');
+      console.error('Failed to update status', err);
+      alert('Failed to update status. Please check the logs.');
     }
   };
 
@@ -110,27 +106,28 @@ export default function InventoryAdminPage() {
                         </div>
                     </td>
                     <td className="px-6 py-4">
-                        <div className="font-bold text-lg mb-2">{(perfume.stock_5ml || 0) * 5 + (perfume.stock_10ml || 0) * 10} ml</div>
-                        <StockProgressBar currentStock={(perfume.stock_5ml || 0) * 5 + (perfume.stock_10ml || 0) * 10} maxStock={100} />
+                        <div className="font-bold text-lg mb-2 capitalize">{perfume.status || 'in stock'}</div>
                     </td>
                     <td className="px-6 py-4">
-                      <StatusPill status={(perfume.stock_5ml + perfume.stock_10ml) < 5 ? 'OUT_OF_STOCK' : 'AVAILABLE'} />
+                      <StatusPill status={perfume.status as "in stock" | "in transit" | "out of stock" | "new"} />
                     </td>
                     <td className="px-6 py-4">
                         <div className="flex items-center justify-end space-x-2">
-                           <Input 
-                             type="number" 
-                             min="1"
-                             placeholder="+ml" 
-                             className="w-20 form-input h-10 border-stone-300 focus:border-[#d9cca5] bg-nude-50"
-                             value={restockAmount[perfume.id] || ''}
+                           <select 
+                             className="form-select h-10 border-stone-300 focus:border-[#d9cca5] bg-nude-50 rounded px-2"
+                             value={restockAmount[perfume.id] || perfume.status || 'in stock'}
                              onChange={(e) => setRestockAmount({...restockAmount, [perfume.id]: e.target.value})}
-                           />
+                           >
+                             <option value="in stock">In Stock</option>
+                             <option value="out of stock">Out of Stock</option>
+                             <option value="new">New</option>
+                             <option value="in transit">In Transit</option>
+                           </select>
                            <Button 
                              onClick={() => handleRestock(perfume.id, perfume.name)}
-                             className="bg-[#d9cca5] hover:bg-[#c9baa2] text-stone-800"
+                             className="bg-black hover:bg-stone-800 text-white"
                            >
-                             ADD STOCK
+                             Update Status
                            </Button>
                         </div>
                     </td>

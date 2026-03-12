@@ -115,9 +115,10 @@ export default function AdminCatalogPage() {
             className="bg-transparent border-0 border-b border-gray-300 py-2 pl-0 pr-8 focus:ring-0 focus:border-ds-black text-sm font-sans uppercase tracking-wider text-ds-charcoal cursor-pointer"
           >
             <option value="ALL">All Status</option>
-            <option value="active">Active</option>
-            <option value="out_of_stock">Out of Stock</option>
-            <option value="discontinued">Discontinued</option>
+            <option value="in stock">In Stock</option>
+            <option value="out of stock">Out of Stock</option>
+            <option value="new">New</option>
+            <option value="in transit">In Transit</option>
           </select>
           <select
             value={accordFilter}

@@ -12,7 +12,7 @@ export default async function SalesPage() {
   const { data: perfumes } = await supabase
     .from('perfumes')
     .select('id, name, price_5ml, price_10ml')
-    .eq('status', 'active')
+    .in('status', ['in stock', 'new'])
     .order('name');
 
   // Fetch recent sales for the table
