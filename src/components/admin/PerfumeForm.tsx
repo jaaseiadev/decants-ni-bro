@@ -18,11 +18,9 @@ export function PerfumeForm({ initialData }: PerfumeFormProps) {
     name: initialData?.name || "",
     brand: initialData?.brand || "",
     description: initialData?.description || "",
-    status: initialData?.status || "active",
+    status: initialData?.status || "in stock",
     price_5ml: initialData?.price_5ml || "",
     price_10ml: initialData?.price_10ml || "",
-    stock_5ml: initialData?.stock_5ml || 0,
-    stock_10ml: initialData?.stock_10ml || 0,
     image_url: initialData?.image_url || "",
     notes_top: initialData?.notes_top || "",
     notes_middle: initialData?.notes_middle || "",
@@ -172,9 +170,10 @@ export function PerfumeForm({ initialData }: PerfumeFormProps) {
                 onChange={handleChange}
                 className="w-full border border-gray-300 bg-white px-4 py-2.5 font-sans focus:outline-none focus:border-ds-black transition-colors"
               >
-                <option value="active">Active</option>
-                <option value="out_of_stock">Out of Stock</option>
-                <option value="discontinued">Discontinued</option>
+                <option value="in stock">In Stock</option>
+                <option value="out of stock">Out of Stock</option>
+                <option value="new">New</option>
+                <option value="in transit">In Transit</option>
               </select>
             </div>
             <div className="space-y-2">
@@ -261,10 +260,10 @@ export function PerfumeForm({ initialData }: PerfumeFormProps) {
 
         <div className="space-y-6">
           <h2 className="font-serif text-2xl uppercase tracking-wider text-ds-black border-b border-gray-200 pb-2">
-            Pricing & Inventory
+            Pricing
           </h2>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
               <label className="font-sans text-xs uppercase tracking-widest font-bold text-ds-black">5ml Price *</label>
               <div className="relative">
@@ -296,28 +295,6 @@ export function PerfumeForm({ initialData }: PerfumeFormProps) {
                   className="w-full border border-gray-300 bg-white pl-8 pr-4 py-2 font-sans focus:outline-none focus:border-ds-black transition-colors"
                 />
               </div>
-            </div>
-            <div className="space-y-2">
-              <label className="font-sans text-xs uppercase tracking-widest font-bold text-ds-black">5ml Stock</label>
-              <input
-                type="number"
-                name="stock_5ml"
-                min="0"
-                value={formData.stock_5ml}
-                onChange={handleChange}
-                className="w-full border border-gray-300 bg-white px-4 py-2 font-sans focus:outline-none focus:border-ds-black transition-colors"
-              />
-            </div>
-            <div className="space-y-2">
-              <label className="font-sans text-xs uppercase tracking-widest font-bold text-ds-black">10ml Stock</label>
-              <input
-                type="number"
-                name="stock_10ml"
-                min="0"
-                value={formData.stock_10ml}
-                onChange={handleChange}
-                className="w-full border border-gray-300 bg-white px-4 py-2 font-sans focus:outline-none focus:border-ds-black transition-colors"
-              />
             </div>
           </div>
         </div>
