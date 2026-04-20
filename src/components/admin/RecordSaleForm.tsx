@@ -6,6 +6,7 @@ import { createSaleRecord } from '@/app/admin/sales/actions';
 interface Perfume {
   id: string;
   name: string;
+  image_url?: string | null;
   price_5ml: number;
   price_10ml: number;
 }
