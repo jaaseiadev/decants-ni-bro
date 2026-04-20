@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "skills": {
+    "html-to-image": {
+      "source": "html2png/skills",
+      "sourceType": "github",
+      "computedHash": "87f5a44c60c96e3f7a3246d57b8087ee9dddb53c72034ce7e8e6e8d6f993b35f"
+    }
+  }
+}

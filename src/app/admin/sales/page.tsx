@@ -2,6 +2,7 @@ import React from 'react';
 import { createClient } from '@/lib/supabase/server';
 import RecordSaleForm from '@/components/admin/RecordSaleForm';
 import { RecentSalesTable } from '@/components/admin/RecentSalesTable';
+import ReceiptGeneratorButton from '@/components/admin/ReceiptGeneratorButton';
 
 export const dynamic = 'force-dynamic';
 
@@ -11,7 +12,7 @@ export default async function SalesPage() {
   // Fetch all active perfumes for the dropdown
   const { data: perfumes } = await supabase
     .from('perfumes')
-    .select('id, name, price_5ml, price_10ml')
+    .select('id, name, image_url, price_5ml, price_10ml')
     .in('status', ['in stock', 'new'])
     .order('name');
 
@@ -25,7 +26,10 @@ export default async function SalesPage() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
       <div>
-        <h1 className="text-2xl font-serif mb-4">New Sale</h1>
+        <div className="flex justify-between items-center mb-4">
+          <h1 className="text-2xl font-serif">New Sale</h1>
+          <ReceiptGeneratorButton perfumes={perfumes || []} />
+        </div>
         <RecordSaleForm perfumes={perfumes || []} />
       </div>
       <div>
