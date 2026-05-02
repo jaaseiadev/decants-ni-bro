@@ -14,6 +14,7 @@ interface Perfume {
   price_10ml: number;
   accords: string;
   image_url: string | null;
+  gender: string | null;
 }
 
 export default function AdminCatalogPage() {
@@ -174,6 +175,9 @@ export default function AdminCatalogPage() {
                   <div>
                     <p className="text-xs font-semibold tracking-widest text-gray-500 uppercase">{perfume.brand}</p>
                     <h3 className="text-xl font-serif mt-1 text-gray-900">{perfume.name}</h3>
+                    <p className="text-xs font-semibold tracking-widest text-gray-500 uppercase mt-1">
+                      {perfume.gender === "male" ? "For Him" : perfume.gender === "female" ? "For Her" : "Unisex"}
+                    </p>
                   </div>
                 </div>
                 <div className="flex justify-between items-end mt-1">

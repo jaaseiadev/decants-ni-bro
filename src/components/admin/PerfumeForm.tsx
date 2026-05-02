@@ -1,11 +1,26 @@
 "use client";
 
-import { useState, FormEvent, useEffect } from "react";
+import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { PhotoUpload } from "./PhotoUpload";
 
 interface PerfumeFormProps {
-  initialData?: any;
+  initialData?: {
+    id?: string;
+    name?: string | null;
+    brand?: string | null;
+    description?: string | null;
+    status?: string | null;
+    price_5ml?: number | string | null;
+    price_10ml?: number | string | null;
+    image_url?: string | null;
+    notes_top?: string | null;
+    notes_middle?: string | null;
+    notes_base?: string | null;
+    when_to_wear?: string | null;
+    gender?: string | null;
+    accords?: string | null;
+  };
 }
 
 export function PerfumeForm({ initialData }: PerfumeFormProps) {
@@ -26,6 +41,7 @@ export function PerfumeForm({ initialData }: PerfumeFormProps) {
     notes_middle: initialData?.notes_middle || "",
     notes_base: initialData?.notes_base || "",
     when_to_wear: initialData?.when_to_wear || "",
+    gender: initialData?.gender || "unisex",
   });
 
   // Accords tag list state
@@ -51,8 +67,6 @@ export function PerfumeForm({ initialData }: PerfumeFormProps) {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
-    // @ts-ignore
-    const checked = e.target.checked;
     setFormData((prev) => ({
       ...prev,
       [name]: type === "number" ? (value === "" ? "" : Number(value)) : value,
@@ -86,9 +100,9 @@ export function PerfumeForm({ initialData }: PerfumeFormProps) {
 
       router.push("/admin/catalog");
       router.refresh();
-    } catch (err: any) {
+    } catch (err) {
       console.error(err);
-      setError(err.message);
+      setError(err instanceof Error ? err.message : "Failed to save perfume.");
       setLoading(false);
     }
   };
@@ -177,6 +191,19 @@ export function PerfumeForm({ initialData }: PerfumeFormProps) {
               </select>
             </div>
             <div className="space-y-2">
+              <label className="font-sans text-xs uppercase tracking-widest font-bold text-ds-black">Gender *</label>
+              <select
+                name="gender"
+                value={formData.gender}
+                onChange={handleChange}
+                className="w-full border border-gray-300 bg-white px-4 py-2.5 font-sans focus:outline-none focus:border-ds-black transition-colors"
+              >
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="unisex">Unisex</option>
+              </select>
+            </div>
+            <div className="space-y-2 md:col-span-2">
               <label className="font-sans text-xs uppercase tracking-widest font-bold text-ds-black">When to wear</label>
               <input
                 type="text"

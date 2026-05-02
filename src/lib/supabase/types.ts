@@ -18,6 +18,7 @@ export type Database = {
           notes_base: string | null
           accords: string | null
           when_to_wear: string | null
+          gender: 'male' | 'female' | 'unisex' | null
           stock_5ml: number
           stock_10ml: number
           created_at: string
@@ -39,6 +40,7 @@ export type Database = {
           notes_base?: string | null
           accords?: string | null
           when_to_wear?: string | null
+          gender?: 'male' | 'female' | 'unisex' | null
           stock_5ml?: number
           stock_10ml?: number
           created_at?: string
@@ -60,6 +62,7 @@ export type Database = {
           notes_base?: string | null
           accords?: string | null
           when_to_wear?: string | null
+          gender?: 'male' | 'female' | 'unisex' | null
           stock_5ml?: number
           stock_10ml?: number
           created_at?: string

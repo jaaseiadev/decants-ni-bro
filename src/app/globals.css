@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,100..900;1,6..96,100..900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Outfit:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&display=swap');
 @import 'tailwindcss';
 
 @theme {
@@ -9,25 +9,30 @@
   --color-ds-taupe: var(--ds-taupe);
   --color-ds-charcoal: var(--ds-charcoal);
 
-  --font-serif: var(--font-cormorant);
-  --font-sans: var(--font-inter);
+  --font-serif: 'Newsreader', serif;
+  --font-sans: 'Inter', sans-serif;
 }
 
 :root {
-  --ds-black: #050505;
-  --ds-ivory: #faf9f6;
-  --ds-nude: #e3d5ca;
-  --ds-greige: #b5a89e;
-  --ds-taupe: #8b8077;
-  --ds-charcoal: #333333;
+  --ds-black: #000000;
+  --ds-ivory: #fbf9f9;
+  --ds-nude: #efeded;
+  --ds-greige: #cfc4c5;
+  --ds-taupe: #7e7576;
+  --ds-charcoal: #1b1c1c;
 }
 
 body {
   background-color: var(--ds-ivory);
   color: var(--ds-black);
-  font-family: var(--font-sans);
+  font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+button,
+a {
+  border-radius: 0;
 }
 
 @layer utilities {
