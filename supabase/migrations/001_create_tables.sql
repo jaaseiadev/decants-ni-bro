@@ -18,6 +18,7 @@ CREATE TABLE perfumes (
     notes_base TEXT,
     accords TEXT,
     when_to_wear TEXT,
+    gender TEXT DEFAULT 'unisex' NOT NULL CHECK (gender IN ('male', 'female', 'unisex')),
     stock_5ml INTEGER DEFAULT 0,
     stock_10ml INTEGER DEFAULT 0,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,

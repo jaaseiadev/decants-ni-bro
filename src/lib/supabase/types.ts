@@ -7,7 +7,7 @@ export type Database = {
           name: string
           brand: string
           description: string | null
-          status: 'active' | 'out_of_stock' | 'discontinued'
+          status: 'in stock' | 'out of stock' | 'new' | 'in transit'
           price_5ml: number
           price_10ml: number
           rating: number
@@ -18,9 +18,7 @@ export type Database = {
           notes_base: string | null
           accords: string | null
           when_to_wear: string | null
-          gender: 'male' | 'female' | 'unisex' | null
-          stock_5ml: number
-          stock_10ml: number
+          gender: 'male' | 'female' | 'unisex'
           created_at: string
           updated_at: string
         }
@@ -29,7 +27,7 @@ export type Database = {
           name: string
           brand: string
           description?: string | null
-          status?: 'active' | 'out_of_stock' | 'discontinued'
+          status?: 'in stock' | 'out of stock' | 'new' | 'in transit'
           price_5ml: number
           price_10ml: number
           rating?: number
@@ -40,9 +38,7 @@ export type Database = {
           notes_base?: string | null
           accords?: string | null
           when_to_wear?: string | null
-          gender?: 'male' | 'female' | 'unisex' | null
-          stock_5ml?: number
-          stock_10ml?: number
+          gender?: 'male' | 'female' | 'unisex'
           created_at?: string
           updated_at?: string
         }
@@ -51,7 +47,7 @@ export type Database = {
           name?: string
           brand?: string
           description?: string | null
-          status?: 'active' | 'out_of_stock' | 'discontinued'
+          status?: 'in stock' | 'out of stock' | 'new' | 'in transit'
           price_5ml?: number
           price_10ml?: number
           rating?: number
@@ -62,17 +58,15 @@ export type Database = {
           notes_base?: string | null
           accords?: string | null
           when_to_wear?: string | null
-          gender?: 'male' | 'female' | 'unisex' | null
-          stock_5ml?: number
-          stock_10ml?: number
+          gender?: 'male' | 'female' | 'unisex'
           created_at?: string
           updated_at?: string
         }
       }
-      sales: { Row: any, Insert: any, Update: any }
-      inventory_log: { Row: any, Insert: any, Update: any }
-      reviews: { Row: any, Insert: any, Update: any }
-      expenses: { Row: any, Insert: any, Update: any }
+      sales: { Row: Record<string, unknown>, Insert: Record<string, unknown>, Update: Record<string, unknown> }
+      inventory_log: { Row: Record<string, unknown>, Insert: Record<string, unknown>, Update: Record<string, unknown> }
+      reviews: { Row: Record<string, unknown>, Insert: Record<string, unknown>, Update: Record<string, unknown> }
+      expenses: { Row: Record<string, unknown>, Insert: Record<string, unknown>, Update: Record<string, unknown> }
     }
   }
 }

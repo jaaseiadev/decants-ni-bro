@@ -1,5 +1,5 @@
 ALTER TABLE perfumes
-ADD COLUMN IF NOT EXISTS gender TEXT DEFAULT 'unisex';
+ADD COLUMN IF NOT EXISTS gender TEXT;
 
 UPDATE perfumes
 SET gender = 'unisex'
@@ -8,6 +8,9 @@ WHERE gender IS NULL
 
 ALTER TABLE perfumes
 ALTER COLUMN gender SET DEFAULT 'unisex';
+
+ALTER TABLE perfumes
+ALTER COLUMN gender SET NOT NULL;
 
 ALTER TABLE perfumes
 DROP CONSTRAINT IF EXISTS perfumes_gender_check;
