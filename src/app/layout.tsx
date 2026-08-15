@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "DecantSnibro | Premium Perfume Decants",
-  description: "Curated collection of high-quality perfume decants.",
+  title: "Decants Ni Bro | Premium Fragrance Decants",
+  description: "A carefully curated collection of premium fragrance decants.",
 };
 
 export default function RootLayout({
