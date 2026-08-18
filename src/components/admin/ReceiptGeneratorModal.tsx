@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
-import html2canvas from 'html2canvas';
 
 interface Perfume {
   id: string;
@@ -14,10 +13,11 @@ interface Perfume {
 interface ReceiptItem {
   id: string;
   perfume: Perfume;
-  size: '5ml' | '10ml';
+  size: '5ml' | '10ml' | null;
   qty: number;
   unitPrice: number;
   totalPrice: number;
+  isFree: boolean;
 }
 
 interface ReceiptGeneratorModalProps {
@@ -31,6 +31,8 @@ export default function ReceiptGeneratorModal({ isOpen, onClose, perfumes }: Rec
   const [selectedPerfumeId, setSelectedPerfumeId] = useState('');
   const [size, setSize] = useState<'5ml' | '10ml'>('5ml');
   const [qty, setQty] = useState(1);
+  const [freeItemName, setFreeItemName] = useState('');
+  const [freeItemQty, setFreeItemQty] = useState(1);
   const [customerName, setCustomerName] = useState('');
   const [isExporting, setIsExporting] = useState(false);
   const receiptRef = useRef<HTMLDivElement>(null);
@@ -53,6 +55,7 @@ export default function ReceiptGeneratorModal({ isOpen, onClose, perfumes }: Rec
       qty,
       unitPrice: currentUnitPrice,
       totalPrice: currentUnitPrice * qty,
+      isFree: false,
     };
 
     setItems([...items, newItem]);
@@ -60,6 +63,31 @@ export default function ReceiptGeneratorModal({ isOpen, onClose, perfumes }: Rec
     // Reset selection
     setSelectedPerfumeId('');
     setQty(1);
+  };
+
+  const handleAddFreeItem = () => {
+    const name = freeItemName.trim();
+    if (!name) return;
+
+    const newItem: ReceiptItem = {
+      id: Math.random().toString(36).substring(7),
+      perfume: {
+        id: `free-${Date.now()}`,
+        name,
+        image_url: null,
+        price_5ml: 0,
+        price_10ml: 0,
+      },
+      size: null,
+      qty: freeItemQty,
+      unitPrice: 0,
+      totalPrice: 0,
+      isFree: true,
+    };
+
+    setItems([...items, newItem]);
+    setFreeItemName('');
+    setFreeItemQty(1);
   };
 
   const handleRemoveItem = (id: string) => {
@@ -78,7 +106,7 @@ export default function ReceiptGeneratorModal({ isOpen, onClose, perfumes }: Rec
     setIsExporting(true);
     try {
       // 1. Get the HTML of the receipt
-      let clone = receiptRef.current.cloneNode(true) as HTMLDivElement;
+      const clone = receiptRef.current.cloneNode(true) as HTMLDivElement;
       
       // Update relative image URLs to base64 data URIs so external API can render them
       const images = Array.from(clone.querySelectorAll('img'));
@@ -267,6 +295,44 @@ export default function ReceiptGeneratorModal({ isOpen, onClose, perfumes }: Rec
               </div>
             </div>
 
+            <div className="border-t border-ds-greige pt-4 mt-2">
+              <h3 className="text-md font-medium text-ds-black mb-1">Add Free Item</h3>
+              <p className="text-xs text-ds-taupe mb-3">Type any complimentary item to list it on the receipt at no charge.</p>
+
+              <div className="flex gap-3 items-end">
+                <div className="flex-1">
+                  <label className="block text-sm font-medium text-ds-charcoal mb-1">Item Name</label>
+                  <input
+                    type="text"
+                    value={freeItemName}
+                    onChange={(e) => setFreeItemName(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') handleAddFreeItem();
+                    }}
+                    placeholder="e.g. Free sample vial"
+                    className="w-full rounded-md border border-ds-greige px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-ds-taupe bg-white"
+                  />
+                </div>
+                <div className="w-20">
+                  <label className="block text-sm font-medium text-ds-charcoal mb-1">Quantity</label>
+                  <input
+                    type="number"
+                    min="1"
+                    value={freeItemQty}
+                    onChange={(e) => setFreeItemQty(Math.max(1, parseInt(e.target.value || '1', 10)))}
+                    className="w-full rounded-md border border-ds-greige px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-ds-taupe bg-white"
+                  />
+                </div>
+                <button
+                  onClick={handleAddFreeItem}
+                  disabled={!freeItemName.trim()}
+                  className="bg-ds-black text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-ds-charcoal disabled:opacity-50 transition-colors whitespace-nowrap"
+                >
+                  Add Free
+                </button>
+              </div>
+            </div>
+
             {/* List of current items to manage them */}
             {items.length > 0 && (
               <div className="border-t border-ds-greige pt-4 mt-2">
@@ -277,11 +343,11 @@ export default function ReceiptGeneratorModal({ isOpen, onClose, perfumes }: Rec
                       <div className="flex items-center gap-2 truncate">
                         <span className="text-ds-taupe w-4">{idx + 1}.</span>
                         <span className="truncate max-w-[120px] sm:max-w-[180px] font-medium">{item.perfume.name}</span>
-                        <span className="text-xs text-ds-charcoal bg-ds-greige/30 px-1.5 py-0.5 rounded">{item.size}</span>
+                        <span className="text-xs text-ds-charcoal bg-ds-greige/30 px-1.5 py-0.5 rounded">{item.isFree ? 'FREE' : item.size}</span>
                         <span className="text-xs text-ds-charcoal">x{item.qty}</span>
                       </div>
                       <div className="flex items-center gap-3 shrink-0">
-                        <span className="font-medium">₱{item.totalPrice.toLocaleString('en-US', { minimumFractionDigits: 2 })}</span>
+                        <span className="font-medium">{item.isFree ? 'FREE' : `₱${item.totalPrice.toLocaleString('en-US', { minimumFractionDigits: 2 })}`}</span>
                         <button onClick={() => handleRemoveItem(item.id)} className="text-red-500 hover:text-red-700">
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -372,6 +438,8 @@ export default function ReceiptGeneratorModal({ isOpen, onClose, perfumes }: Rec
                         <div className="w-10 h-10 rounded overflow-hidden shrink-0 border border-stone-100 bg-stone-50 flex items-center justify-center">
                           {item.perfume.image_url ? (
                             <img src={item.perfume.image_url} alt={item.perfume.name} className="w-full h-full object-cover" />
+                          ) : item.isFree ? (
+                            <span className="text-[8px] font-bold tracking-wide text-stone-500">FREE</span>
                           ) : (
                             <span className="text-[8px] text-stone-300">No Img</span>
                           )}
@@ -379,12 +447,14 @@ export default function ReceiptGeneratorModal({ isOpen, onClose, perfumes }: Rec
                         <div className="leading-tight">
                           <div className="font-bold text-sm">{item.perfume.name}</div>
                           <div className="text-xs text-stone-500 font-sans mt-0.5">
-                            {item.size} × {item.qty} @ ₱{item.unitPrice.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                            {item.isFree
+                              ? `Complimentary × ${item.qty}`
+                              : `${item.size} × ${item.qty} @ ₱${item.unitPrice.toLocaleString('en-US', { minimumFractionDigits: 2 })}`}
                           </div>
                         </div>
                       </div>
                       <div className="font-bold text-sm shrink-0 pt-0.5">
-                        ₱{item.totalPrice.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                        {item.isFree ? 'FREE' : `₱${item.totalPrice.toLocaleString('en-US', { minimumFractionDigits: 2 })}`}
                       </div>
                     </div>
                   ))
