@@ -212,8 +212,7 @@ export default function AllTimePerfumeRanking({
                     <div className="min-w-0">
                       <p className="truncate font-serif text-lg">{perfume.name}</p>
                       <p className="text-ds-taupe mt-1 truncate text-[9px] font-bold tracking-[0.18em] uppercase">
-                        {perfume.brand || 'No brand'} · {perfume.orders.toLocaleString()} bottles
-                        sold
+                        {perfume.brand || 'No brand'} · {perfume.orders.toLocaleString()} units sold
                       </p>
                       <div className="bg-ds-nude mt-3 h-1 w-full">
                         <div
